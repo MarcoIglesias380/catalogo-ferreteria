@@ -135,6 +135,9 @@ function setActiveCategory(category) {
 
 function openModal(product) {
   lastFocusedElement = document.activeElement;
+  const whatsappText = encodeURIComponent(
+    `Hola Poseck Ferreterías, me interesa consultar por el producto: ${product.nombre} (Cód: ${product.codigo}) por ${currency.format(product.precioIva)} IVA inc.`
+  );
   modalContent.innerHTML = `
     <div class="modal-product-head">
       <div class="modal-image">
@@ -152,7 +155,7 @@ function openModal(product) {
     <section class="spec-sheet" aria-label="Ficha técnica">
       <div class="spec-heading">
         <strong>FICHA TÉCNICA</strong>
-        <span>DO / ${product.codigo}</span>
+        <span>PF / ${product.codigo}</span>
       </div>
       <dl class="spec-list">
         <div class="spec-row">
@@ -160,7 +163,7 @@ function openModal(product) {
           <dd>${product.codigo}</dd>
         </div>
         <div class="spec-row">
-          <dt>Cantidad por embalaje</dt>
+          <dt>Presentación / Embalaje</dt>
           <dd>${product.embalaje}</dd>
         </div>
         <div class="spec-row is-price">
@@ -173,7 +176,7 @@ function openModal(product) {
         </div>
       </dl>
     </section>
-    <section class="list-action" aria-label="Agregar producto a tu lista">
+    <section class="list-action" aria-label="Acciones de compra y cotización">
       <div class="quantity-field">
         <span class="quantity-label">Cantidad</span>
         <div class="quantity-control">
@@ -194,12 +197,25 @@ function openModal(product) {
           </button>
         </div>
       </div>
-      <button class="add-list-button" type="button" data-add-to-list>
-        <svg aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M5 6h14M5 12h9M5 18h7M18 15v6M15 18h6" />
-        </svg>
-        <span>Agregar a tu lista</span>
-      </button>
+      <div class="modal-buttons-group">
+        <button class="add-list-button" type="button" data-add-to-list>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M5 6h14M5 12h9M5 18h7M18 15v6M15 18h6" />
+          </svg>
+          <span>Agregar a tu lista</span>
+        </button>
+        <a
+          class="whatsapp-quote-button"
+          href="https://wa.me/56953326406?text=${whatsappText}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+          </svg>
+          <span>Cotizar por WhatsApp</span>
+        </a>
+      </div>
     </section>
   `;
   modal.hidden = false;

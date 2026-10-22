@@ -618,9 +618,9 @@ svg {
 }
 
 .product-image {
-  width: 76%;
-  height: 190px;
-  object-fit: contain;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
   transition: transform 240ms ease;
 }
 
@@ -1054,9 +1054,11 @@ svg {
 }
 
 .modal-image img {
-  width: min(74%, 280px);
-  height: 210px;
-  object-fit: contain;
+  width: min(92%, 360px);
+  height: 260px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .modal-summary {
@@ -1235,6 +1237,44 @@ svg {
 
 .quantity-control input:focus {
   box-shadow: inset 0 0 0 2px var(--signal-yellow);
+}
+
+.modal-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.whatsapp-quote-button {
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--radius-sm);
+  background: #25d366;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.28);
+  transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.whatsapp-quote-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.whatsapp-quote-button:hover,
+.whatsapp-quote-button:focus-visible {
+  background: #1ebc59;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.38);
 }
 
 .add-list-button {
@@ -1620,8 +1660,12 @@ svg {
 
   .list-action {
     margin: -12px 30px 30px;
-    grid-template-columns: auto minmax(280px, 0.55fr);
-    align-items: end;
+    grid-template-columns: auto minmax(360px, 0.7fr);
+    align-items: center;
+  }
+
+  .modal-buttons-group {
+    flex-direction: row;
   }
 
   .quantity-field {
