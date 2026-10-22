@@ -9,8 +9,8 @@
   --tool-black: #242422;
   --steel: #6b6b64;
   --zinc: #a7a79f;
-  --paper: #fbfbf8;
-  --warehouse-floor: #f1f1ec;
+  --paper: #ecece6;
+  --warehouse-floor: #e2e2dc;
   --surface-raised: #ffffff;
   --line-soft: rgba(23, 23, 22, 0.09);
   --line-medium: rgba(23, 23, 22, 0.16);
@@ -41,9 +41,9 @@
   --tool-black: #e4e4de;
   --steel: #b4b4ac;
   --zinc: #85857e;
-  --paper: #11110f;
-  --warehouse-floor: #191917;
-  --surface-raised: #20201d;
+  --paper: #121315;
+  --warehouse-floor: #1a1a1d;
+  --surface-raised: #202024;
   --line-soft: rgba(255, 255, 248, 0.1);
   --line-medium: rgba(255, 255, 248, 0.2);
   --control-inset: #181816;
@@ -299,63 +299,23 @@ svg {
   animation: reveal-up 0.65s both cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.hero-brand-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
-  padding: 8px 18px 8px 10px;
-  border-radius: 999px;
-  background: rgba(28, 29, 32, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+.hero-logo-large {
+  display: block;
+  margin-bottom: 22px;
 }
 
-.hero-brand-badge img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex: 0 0 auto;
+.hero-logo-large img {
+  display: block;
+  width: min(100%, 270px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.55));
 }
 
-.hero-badge-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.hero-badge-text strong {
-  font-size: 0.84rem;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-}
-
-.hero-badge-text small {
-  color: #ff5460;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.hero .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #e6e6e2;
-  font-size: 0.74rem;
-  font-weight: 750;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.hero .eyebrow i {
-  width: 26px;
-  height: 3px;
-  background: var(--brand-red);
+@media (min-width: 900px) {
+  .hero-logo-large img {
+    width: 320px;
+  }
 }
 
 .hero h1 {
