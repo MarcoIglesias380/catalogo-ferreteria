@@ -1,6 +1,10 @@
 :root {
-  --signal-yellow: #f2b705;
-  --signal-yellow-dark: #d79f00;
+  --brand-red: #e30613;
+  --brand-red-dark: #b8050e;
+  --brand-red-light: #ff3342;
+  --brand-charcoal: #2a2b2c;
+  --signal-yellow: var(--brand-red);
+  --signal-yellow-dark: var(--brand-red-dark);
   --graphite: #171716;
   --tool-black: #242422;
   --steel: #6b6b64;
@@ -15,8 +19,8 @@
   --available-bg: #e8f5ed;
   --unavailable: #b42318;
   --unavailable-bg: #fcedeb;
-  --order: #8a6300;
-  --order-bg: #fff5d4;
+  --order: #c0392b;
+  --order-bg: #fdf2f2;
   --shadow-card: 0 10px 30px rgba(23, 23, 22, 0.07);
   --shadow-modal: 0 28px 70px rgba(0, 0, 0, 0.25);
   --radius-sm: 10px;
@@ -27,6 +31,12 @@
 }
 
 :root[data-theme="dark"] {
+  --brand-red: #e30613;
+  --brand-red-dark: #ff4755;
+  --brand-red-light: #ff6b77;
+  --brand-charcoal: #1c1d1e;
+  --signal-yellow: var(--brand-red);
+  --signal-yellow-dark: var(--brand-red-dark);
   --graphite: #f4f4ef;
   --tool-black: #e4e4de;
   --steel: #b4b4ac;
@@ -41,8 +51,8 @@
   --available-bg: #173727;
   --unavailable: #ff8a81;
   --unavailable-bg: #44201d;
-  --order: #f2c84b;
-  --order-bg: #3a3014;
+  --order: #ff7675;
+  --order-bg: #3d1c1c;
   --shadow-card: 0 12px 34px rgba(0, 0, 0, 0.24);
   --shadow-modal: 0 28px 70px rgba(0, 0, 0, 0.55);
   color-scheme: dark;
@@ -125,8 +135,10 @@ svg {
   max-height: 56px;
   height: auto;
   flex: 0 0 auto;
-  object-fit: contain;
+  object-fit: cover;
   aspect-ratio: 1;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .brand-copy {
@@ -322,7 +334,7 @@ svg {
   justify-content: center;
   gap: 14px;
   border-radius: var(--radius-sm);
-  background: var(--graphite);
+  background: var(--brand-red);
   color: white;
   font-size: 0.94rem;
   font-weight: 700;
@@ -334,8 +346,16 @@ svg {
 }
 
 .primary-button:hover {
-  background: #000;
+  background: var(--brand-red-dark);
   transform: translateY(-2px);
+}
+
+.primary-button.secondary {
+  background: var(--graphite);
+}
+
+.primary-button.secondary:hover {
+  background: #000;
 }
 
 .back-to-top {
@@ -348,9 +368,9 @@ svg {
   height: 50px;
   border: 1px solid rgba(23, 23, 22, 0.18);
   border-radius: 50%;
-  background: var(--signal-yellow);
-  box-shadow: 0 12px 30px rgba(23, 23, 22, 0.2);
-  color: #171716;
+  background: var(--brand-red);
+  box-shadow: 0 12px 30px rgba(227, 6, 19, 0.28);
+  color: #ffffff;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -371,7 +391,8 @@ svg {
 
 .back-to-top:hover,
 .back-to-top:focus-visible {
-  background: #ffca24;
+  background: var(--brand-red-dark);
+  color: #ffffff;
   transform: translateY(-2px) scale(1);
 }
 
@@ -388,15 +409,16 @@ svg {
 
 .hero-brand-mark {
   display: block;
-  width: min(100%, 430px);
+  width: min(100%, 380px);
   height: auto;
   margin: 0 auto;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 28px rgba(23, 23, 22, 0.12));
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
 }
 
 :root[data-theme="dark"] .hero-brand-mark {
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.36));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .measure-line {
@@ -783,10 +805,11 @@ svg {
 
 .footer-brand img {
   width: 64px;
-  height: auto;
+  height: 64px;
   flex: 0 0 auto;
-  border-radius: 50%;
-  object-fit: contain;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .footer-brand h2,
@@ -1222,10 +1245,10 @@ svg {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid var(--graphite);
+  border: 1px solid var(--brand-red);
   border-radius: var(--radius-sm);
-  background: var(--signal-yellow);
-  color: var(--graphite);
+  background: var(--brand-red);
+  color: #ffffff;
   cursor: pointer;
   font-weight: 800;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
@@ -1237,7 +1260,7 @@ svg {
 
 .add-list-button:hover,
 .add-list-button:focus-visible {
-  background: var(--graphite);
+  background: var(--brand-red-dark);
   color: white;
   transform: translateY(-1px);
 }
@@ -1257,13 +1280,13 @@ svg {
 :root[data-theme="dark"] .detail-button:hover,
 :root[data-theme="dark"] .detail-button:focus-visible,
 :root[data-theme="dark"] .empty-state button {
-  border-color: var(--signal-yellow);
-  background: var(--signal-yellow);
-  color: #171716;
+  border-color: var(--brand-red);
+  background: var(--brand-red);
+  color: #ffffff;
 }
 
 :root[data-theme="dark"] .primary-button:hover {
-  background: #ffca24;
+  background: var(--brand-red-dark);
 }
 
 :root[data-theme="dark"] .site-footer {
@@ -1272,14 +1295,15 @@ svg {
 }
 
 :root[data-theme="dark"] .add-list-button {
-  border-color: var(--signal-yellow);
-  color: #171716;
+  border-color: var(--brand-red);
+  background: var(--brand-red);
+  color: #ffffff;
 }
 
 :root[data-theme="dark"] .add-list-button:hover,
 :root[data-theme="dark"] .add-list-button:focus-visible {
-  background: #ffca24;
-  color: #171716;
+  background: var(--brand-red-dark);
+  color: #ffffff;
 }
 
 :root[data-theme="dark"] .modal-close {

@@ -27,6 +27,7 @@ function applyTheme(theme, persist = true) {
 
   if (persist) {
     try {
+      localStorage.setItem("poseck-theme", isDark ? "dark" : "light");
       localStorage.setItem("do-theme", isDark ? "dark" : "light");
     } catch {
       // El tema funciona aunque el navegador bloquee el almacenamiento local.

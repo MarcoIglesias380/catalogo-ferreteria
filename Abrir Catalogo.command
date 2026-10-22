@@ -3,7 +3,7 @@
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PORT=8000
 URL="http://localhost:${PORT}/"
-LOG_FILE="/tmp/catalogo-distribuidora-oriente.log"
+LOG_FILE="/tmp/catalogo-poseck-ferreterias.log"
 
 cd "$PROJECT_DIR" || exit 1
 

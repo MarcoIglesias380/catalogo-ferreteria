@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Catálogo de productos de Distribuidora Oriente: portones, fijaciones, herramientas y accesorios."
+      content="Catálogo de productos de Poseck Ferreterías: herramientas, construcción, fijaciones y accesorios en Puerto Varas y Los Muermos."
     />
     <meta name="theme-color" content="#171716" />
-    <title>Catálogo | Distribuidora Oriente</title>
+    <title>Catálogo | Poseck Ferreterías</title>
+    <link rel="icon" type="image/png" href="./assets/logo-poseck.png" />
     <script>
       (() => {
         try {
-          const savedTheme = localStorage.getItem("do-theme");
+          const savedTheme = localStorage.getItem("poseck-theme") || localStorage.getItem("do-theme");
           const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
             ? "dark"
             : "light";
@@ -35,19 +36,19 @@
   <body>
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href="#inicio" aria-label="Distribuidora Oriente, volver al inicio">
+        <a class="brand" href="#inicio" aria-label="Poseck Ferreterías, volver al inicio">
           <img
             class="brand-logo"
-            src="./assets/logo.svg"
-            alt="Logo Distribuidora Oriente"
+            src="./assets/logo-poseck.png"
+            alt="Logo Poseck Ferreterías"
             width="200"
             height="200"
             decoding="async"
           />
         
           <span class="brand-copy">
-            <strong>DISTRIBUIDORA ORIENTE</strong>
-            <small>Soluciones en ferretería para profesionales</small>
+            <strong>POSECK FERRETERÍAS</strong>
+            <small>Los Muermos · Puerto Varas</small>
           </span>
         </a>
         <div class="header-actions">
@@ -98,7 +99,7 @@
                   <path d="m7 10 5 5 5-5" />
                 </svg>
               </a>
-              <a class="primary-button" href="#contacto">
+              <a class="primary-button secondary" href="#contacto">
                 Contáctanos
                 <svg aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M4 5h16v14H4zM4 7l8 6 8-6" />
@@ -110,8 +111,8 @@
           <div class="hero-visual" aria-hidden="true">
             <img
               class="hero-brand-mark"
-              src="./assets/logo.svg"
-              alt=""
+              src="./assets/logo-poseck.png"
+              alt="Poseck Ferreterías"
               width="500"
               height="500"
               decoding="async"
@@ -126,7 +127,7 @@
       <section class="catalog-section" id="catalogo">
         <div class="section-heading">
           <div>
-            <span class="section-kicker">SELECCIÓN ORIENTE</span>
+            <span class="section-kicker">SELECCIÓN POSECK</span>
             <h2>Encuentra lo que necesitas</h2>
           </div>
           <p id="result-count" aria-live="polite">Cargando productos…</p>
@@ -174,15 +175,15 @@
         <div class="footer-columns">
           <section class="footer-brand" aria-labelledby="footer-brand-title">
             <img
-              src="./assets/logo.svg"
-              alt="Logo de Distribuidora Oriente"
+              src="./assets/logo-poseck.png"
+              alt="Logo de Poseck Ferreterías"
               width="200"
               height="200"
               loading="lazy"
             />
             <div>
-              <h2 id="footer-brand-title">DISTRIBUIDORA ORIENTE</h2>
-              <p>Soluciones que mantienen tu trabajo en movimiento.</p>
+              <h2 id="footer-brand-title">POSECK FERRETERÍAS</h2>
+              <p>Soluciones en ferretería y construcción para Puerto Varas y Los Muermos.</p>
             </div>
           </section>
 
@@ -195,27 +196,15 @@
             <address class="footer-contact-list">
               <p>
                 <span>Dirección</span>
-                Artemio Mansilla 1130, Bombero Kemp, Puerto Montt
+                Av. Gramado 921, 5550000 Puerto Varas, Los Lagos
               </p>
               <p>
-                <span>Correo</span>
-                <a href="mailto:ferreteriaoriente@hotmail.com">
-                  ferreteriaoriente@hotmail.com
-                </a>
+                <span>Cobertura</span>
+                Puerto Varas · Los Muermos
               </p>
               <p>
-                <span>Teléfono</span>
-                <a href="tel:+56966377342">+56 9 6637 7342</a>
-              </p>
-              <p>
-                <span>Instagram</span>
-                <a
-                  href="https://instagram.com/ferreteria_oriente_pm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  @ferreteria_oriente_pm
-                </a>
+                <span>Teléfono / WhatsApp</span>
+                <a href="tel:+56953326406">+56 9 5332 6406</a>
               </p>
             </address>
           </section>
@@ -223,12 +212,12 @@
           <section class="footer-section" aria-labelledby="footer-hours-title">
             <h2 id="footer-hours-title">Horario de atención</h2>
             <dl class="footer-hours">
-              <div><dt>Lunes</dt><dd>8:30 a.m. – 6:00 p.m.</dd></div>
-              <div><dt>Martes</dt><dd>8:30 a.m. – 6:00 p.m.</dd></div>
-              <div><dt>Miércoles</dt><dd>8:30 a.m. – 6:00 p.m.</dd></div>
-              <div><dt>Jueves</dt><dd>8:30 a.m. – 6:00 p.m.</dd></div>
-              <div><dt>Viernes</dt><dd>8:30 a.m. – 6:00 p.m.</dd></div>
-              <div><dt>Sábado</dt><dd>9:00 a.m. – 1:30 p.m.</dd></div>
+              <div><dt>Lunes</dt><dd>8:30 a.m. – 6:30 p.m.</dd></div>
+              <div><dt>Martes</dt><dd>8:30 a.m. – 6:30 p.m.</dd></div>
+              <div><dt>Miércoles</dt><dd>8:30 a.m. – 6:30 p.m.</dd></div>
+              <div><dt>Jueves</dt><dd>8:30 a.m. – 6:30 p.m.</dd></div>
+              <div><dt>Viernes</dt><dd>8:30 a.m. – 6:30 p.m.</dd></div>
+              <div><dt>Sábado</dt><dd>9:00 a.m. – 2:00 p.m.</dd></div>
               <div class="is-closed"><dt>Domingo</dt><dd>Cerrado</dd></div>
             </dl>
           </section>
@@ -237,13 +226,13 @@
         <section class="footer-location" aria-labelledby="footer-location-title">
           <div class="footer-location-copy">
             <span>Visítanos</span>
-            <h2 id="footer-location-title">Encuéntranos en Puerto Montt</h2>
-            <p>Artemio Mansilla 1130, Bombero Kemp</p>
+            <h2 id="footer-location-title">Encuéntranos en Puerto Varas</h2>
+            <p>Av. Gramado 921, Puerto Varas, Los Lagos</p>
           </div>
           <div class="footer-map">
             <iframe
-              title="Mapa de Distribuidora Oriente en Puerto Montt"
-              src="https://www.google.com/maps?q=Artemio%20Mansilla%201130%2C%20Puerto%20Montt%2C%20Chile&output=embed"
+              title="Mapa de Poseck Ferreterías en Puerto Varas"
+              src="https://www.google.com/maps?q=Av.+Gramado+921,+Puerto+Varas,+Los+Lagos,+Chile&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen
@@ -253,7 +242,7 @@
       </div>
 
       <div class="footer-legal">
-        <p>Creado por Marco Iglesias by SurInnovacion · Todos los derechos reservados</p>
+        <p>Poseck Ferreterías · Todos los derechos reservados · Desarrollado por SurInnovación</p>
       </div>
     </footer>
 
