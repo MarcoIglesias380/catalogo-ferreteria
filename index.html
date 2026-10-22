@@ -86,12 +86,38 @@
     </header>
 
     <main>
-      <section class="hero" id="inicio">
-        <div class="hero-grid">
+      <section class="hero hero-full" id="inicio">
+        <div class="hero-bg-layer" aria-hidden="true">
+          <img
+            class="hero-bg-image"
+            src="./assets/hero-banner.jpg"
+            alt=""
+            width="1024"
+            height="571"
+            decoding="async"
+          />
+          <div class="hero-bg-overlay"></div>
+        </div>
+
+        <div class="hero-container">
           <div class="hero-content">
+            <div class="hero-brand-badge">
+              <img
+                src="./assets/logo-poseck.png"
+                alt="Logo Poseck Ferreterías"
+                width="64"
+                height="64"
+              />
+              <span class="hero-badge-text">
+                <strong>POSECK FERRETERÍAS</strong>
+                <small>Puerto Varas · Los Muermos</small>
+              </span>
+            </div>
+
             <span class="eyebrow"><i></i> Catálogo profesional · 2026</span>
             <h1>Catálogo de<br /><span>Productos</span></h1>
-            <p>Herramientas y soluciones con información clara y precios actualizados.</p>
+            <p>Herramientas, construcción y soluciones con información técnica clara y precios actualizados.</p>
+
             <div class="hero-actions">
               <a class="primary-button" href="#catalogo">
                 Ver catálogo
@@ -107,18 +133,8 @@
               </a>
             </div>
           </div>
-
-          <div class="hero-visual" aria-hidden="true">
-            <img
-              class="hero-brand-mark"
-              src="./assets/logo-poseck.png"
-              alt="Poseck Ferreterías"
-              width="500"
-              height="500"
-              decoding="async"
-            />
-          </div>
         </div>
+
         <div class="measure-line" aria-hidden="true">
           <span></span><i></i><i></i><i></i><i></i><i></i><span></span>
         </div>
