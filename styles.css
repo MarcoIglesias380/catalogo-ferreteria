@@ -2693,3 +2693,123 @@ svg {
   border-color: var(--brand-red);
   color: #ffffff;
 }
+
+
+/* ---- Branch Selector & Map / Waze Directions ---- */
+.branch-selector {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (min-width: 600px) {
+  .branch-selector {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.branch-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.branch-pill strong {
+  font-size: 0.86rem;
+  font-weight: 750;
+  color: #ffffff;
+}
+
+.branch-pill span {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: #b4b6bd;
+}
+
+.branch-pill:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.branch-pill.is-active {
+  border-color: var(--brand-red);
+  background: rgba(227, 6, 19, 0.14);
+}
+
+.location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.location-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.location-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.location-btn.is-map-toggle {
+  border: 1px solid var(--brand-red);
+  background: var(--brand-red);
+  color: #ffffff;
+}
+
+.location-btn.is-map-toggle:hover {
+  background: var(--brand-red-dark);
+  transform: translateY(-1px);
+}
+
+.location-btn.is-gmaps {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.location-btn.is-gmaps:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.location-btn.is-waze {
+  border: 1px solid rgba(51, 204, 255, 0.35);
+  background: rgba(51, 204, 255, 0.14);
+  color: #7ee3ff;
+}
+
+.location-btn.is-waze:hover {
+  background: rgba(51, 204, 255, 0.24);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.footer-map[hidden] {
+  display: none;
+}
+
+.footer-map:not([hidden]) {
+  animation: reveal-up 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}

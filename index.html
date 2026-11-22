@@ -216,12 +216,12 @@
             <h2 id="footer-contact-title">Contacto</h2>
             <address class="footer-contact-list">
               <p>
-                <span>Dirección</span>
+                <span>Puerto Varas</span>
                 Av. Gramado 921, 5550000 Puerto Varas, Los Lagos
               </p>
               <p>
-                <span>Cobertura</span>
-                Puerto Varas · Los Muermos
+                <span>Los Muermos</span>
+                Pablo Téllez SN y Bernardo O'Higgins 51, Los Muermos, Los Lagos
               </p>
               <p>
                 <span>Teléfono / WhatsApp</span>
@@ -247,12 +247,68 @@
         <section class="footer-location" aria-labelledby="footer-location-title">
           <div class="footer-location-copy">
             <span>Visítanos</span>
-            <h2 id="footer-location-title">Encuéntranos en Puerto Varas</h2>
-            <p>Av. Gramado 921, Puerto Varas, Los Lagos</p>
+            <h2 id="footer-location-title">Nuestras Sucursales</h2>
+
+            <div class="branch-selector" role="tablist" aria-label="Seleccionar sucursal">
+              <button
+                type="button"
+                class="branch-pill is-active"
+                data-branch="puerto-varas"
+                aria-selected="true"
+              >
+                <strong>Puerto Varas</strong>
+                <span>Av. Gramado 921, Puerto Varas</span>
+              </button>
+              <button
+                type="button"
+                class="branch-pill"
+                data-branch="los-muermos"
+                aria-selected="false"
+              >
+                <strong>Los Muermos</strong>
+                <span>Pablo Téllez SN y Bernardo O'Higgins 51</span>
+              </button>
+            </div>
+
+            <div class="location-actions">
+              <button
+                type="button"
+                class="location-btn is-map-toggle"
+                id="toggle-map-btn"
+                aria-expanded="false"
+                aria-controls="footer-map-panel"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 21s-6-5.33-6-10a6 6 0 1 1 12 0c0 4.67-6 10-6 10Z" />
+                  <circle cx="12" cy="11" r="2.2" />
+                </svg>
+                <span>Cómo llegar (Ver mapa)</span>
+              </button>
+              <a
+                class="location-btn is-gmaps"
+                id="gmaps-directions-link"
+                href="https://www.google.com/maps/dir/?api=1&destination=Av.+Gramado+921,+Puerto+Varas,+Los+Lagos,+Chile"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Maps
+              </a>
+              <a
+                class="location-btn is-waze"
+                id="waze-directions-link"
+                href="https://waze.com/ul?q=Av.%20Gramado%20921%2C%20Puerto%20Varas%2C%20Chile&navigate=yes"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ir con Waze
+              </a>
+            </div>
           </div>
-          <div class="footer-map">
+
+          <div class="footer-map" id="footer-map-panel" hidden>
             <iframe
-              title="Mapa de Poseck Ferreterías en Puerto Varas"
+              id="footer-map-iframe"
+              title="Mapa de Poseck Ferreterías"
               src="https://www.google.com/maps?q=Av.+Gramado+921,+Puerto+Varas,+Los+Lagos,+Chile&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"

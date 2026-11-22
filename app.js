@@ -844,3 +844,71 @@ document.addEventListener("keydown", (event) => {
 });
 
 updateAccountNav();
+
+
+/* ---- Branch Selector, Deployable Map & Waze / Google Maps Directions ---- */
+const BRANCHES = {
+  "puerto-varas": {
+    label: "Puerto Varas",
+    address: "Av. Gramado 921, Puerto Varas, Los Lagos, Chile",
+    embed: "https://www.google.com/maps?q=Av.+Gramado+921,+Puerto+Varas,+Los+Lagos,+Chile&output=embed",
+    gmaps: "https://www.google.com/maps/dir/?api=1&destination=Av.+Gramado+921,+Puerto+Varas,+Los+Lagos,+Chile",
+    waze: "https://waze.com/ul?q=Av.%20Gramado%20921%2C%20Puerto%20Varas%2C%20Chile&navigate=yes",
+  },
+  "los-muermos": {
+    label: "Los Muermos",
+    address: "Pablo Téllez SN y Bernardo O'Higgins 51, Los Muermos, Los Lagos, Chile",
+    embed: "https://www.google.com/maps?q=Bernardo+O'Higgins+51,+Los+Muermos,+Los+Lagos,+Chile&output=embed",
+    gmaps: "https://www.google.com/maps/dir/?api=1&destination=Pablo+T%C3%A9llez+y+Bernardo+O'Higgins+51,+Los+Muermos,+Los+Lagos,+Chile",
+    waze: "https://waze.com/ul?q=Bernardo%20O'Higgins%2051%2C%20Los%20Muermos%2C%20Chile&navigate=yes",
+  },
+};
+
+const branchButtons = [...document.querySelectorAll(".branch-pill")];
+const toggleMapBtn = document.querySelector("#toggle-map-btn");
+const mapPanel = document.querySelector("#footer-map-panel");
+const mapIframe = document.querySelector("#footer-map-iframe");
+const gmapsLink = document.querySelector("#gmaps-directions-link");
+const wazeLink = document.querySelector("#waze-directions-link");
+
+function setBranch(branchKey, openMap = false) {
+  const branch = BRANCHES[branchKey];
+  if (!branch) return;
+
+  branchButtons.forEach((btn) => {
+    const isMatch = btn.dataset.branch === branchKey;
+    btn.classList.toggle("is-active", isMatch);
+    btn.setAttribute("aria-selected", String(isMatch));
+  });
+
+  if (mapIframe && mapIframe.src !== branch.embed) {
+    mapIframe.src = branch.embed;
+    mapIframe.title = `Mapa de Poseck Ferreterías en ${branch.label}`;
+  }
+  if (gmapsLink) gmapsLink.href = branch.gmaps;
+  if (wazeLink) wazeLink.href = branch.waze;
+
+  if (openMap && mapPanel && toggleMapBtn) {
+    mapPanel.hidden = false;
+    toggleMapBtn.setAttribute("aria-expanded", "true");
+    const labelSpan = toggleMapBtn.querySelector("span");
+    if (labelSpan) labelSpan.textContent = "Ocultar mapa";
+  }
+}
+
+branchButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    setBranch(btn.dataset.branch, true);
+  });
+});
+
+toggleMapBtn?.addEventListener("click", () => {
+  if (!mapPanel) return;
+  const willOpen = mapPanel.hidden;
+  mapPanel.hidden = !willOpen;
+  toggleMapBtn.setAttribute("aria-expanded", String(willOpen));
+  const labelSpan = toggleMapBtn.querySelector("span");
+  if (labelSpan) {
+    labelSpan.textContent = willOpen ? "Ocultar mapa" : "Cómo llegar (Ver mapa)";
+  }
+});
