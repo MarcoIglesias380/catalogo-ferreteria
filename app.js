@@ -204,11 +204,13 @@ function openModal(product) {
         </div>
       </div>
       <div class="modal-buttons-group">
-        <button class="add-list-button" type="button" data-add-to-list>
-          <svg aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M5 6h14M5 12h9M5 18h7M18 15v6M15 18h6" />
+        <button class="add-list-button" type="button" data-add-to-cart="${product.id}">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="20" r="1.5" />
+            <circle cx="18" cy="20" r="1.5" />
+            <path d="M2.5 3h3l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h9.2a1.5 1.5 0 0 0 1.4-1.1L21.5 7H6.2" />
           </svg>
-          <span>Agregar a tu lista</span>
+          <span>Agregar al carrito</span>
         </button>
         <a
           class="whatsapp-quote-button"
@@ -331,14 +333,29 @@ modalContent.addEventListener("click", (event) => {
     );
   }
 
-  const addButton = event.target.closest("[data-add-to-list]");
+  const addButton = event.target.closest("[data-add-to-cart]");
   if (addButton && quantityInput) {
+    const productId = Number(addButton.dataset.addToCart);
+    const qty = Math.min(Math.max(Number(quantityInput.value) || 1, 1), 999);
+    const product = products.find(({ id }) => id === productId);
+    if (product) {
+      addItemToCart({
+        id: product.id,
+        codigo: product.codigo,
+        nombre: product.nombre,
+        imagen: product.imagen,
+        precioNeto: product.precioNeto,
+        precioIva: product.precioIva,
+        qty,
+      });
+    }
+
     const label = addButton.querySelector("span");
-    label.textContent = "Producto agregado";
+    label.textContent = "✓ Agregado al carrito";
     addButton.classList.add("is-added");
 
     window.setTimeout(() => {
-      label.textContent = "Agregar a tu lista";
+      label.textContent = "Agregar al carrito";
       addButton.classList.remove("is-added");
     }, 1800);
   }
@@ -396,3 +413,200 @@ document.querySelectorAll(".partner-3d-link").forEach((link) => {
     }, 170);
   });
 });
+
+
+/* ---- Shopping Cart (E-Commerce) ---- */
+const CART_STORAGE_KEY = "poseck-cart";
+const cartToggleBtn = document.querySelector("#cart-toggle-btn");
+const cartBadge = document.querySelector("#cart-badge");
+const cartBackdrop = document.querySelector("#cart-backdrop");
+const cartCloseBtn = document.querySelector("#cart-close-btn");
+const cartItemsContainer = document.querySelector("#cart-items-container");
+const cartFooter = document.querySelector("#cart-drawer-footer");
+const cartSubtotalNetoEl = document.querySelector("#cart-subtotal-neto");
+const cartIvaEl = document.querySelector("#cart-iva");
+const cartTotalIvaEl = document.querySelector("#cart-total-iva");
+const cartWhatsappBtn = document.querySelector("#cart-whatsapp-btn");
+const cartClearBtn = document.querySelector("#cart-clear-btn");
+
+function loadCart() {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+let cart = loadCart();
+
+function saveCart() {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch {
+    // Ignorar si almacenamiento local está restringido.
+  }
+}
+
+function addItemToCart(item) {
+  const existing = cart.find((entry) => entry.codigo === item.codigo);
+  if (existing) {
+    existing.qty = Math.min(existing.qty + item.qty, 999);
+  } else {
+    cart.push({ ...item });
+  }
+  saveCart();
+  renderCart();
+  if (cartBadge) {
+    cartBadge.classList.remove("is-pop");
+    void cartBadge.offsetWidth;
+    cartBadge.classList.add("is-pop");
+  }
+}
+
+function updateCartItemQty(codigo, delta) {
+  const idx = cart.findIndex((entry) => entry.codigo === codigo);
+  if (idx === -1) return;
+  const nextQty = cart[idx].qty + delta;
+  if (nextQty <= 0) {
+    cart.splice(idx, 1);
+  } else {
+    cart[idx].qty = Math.min(nextQty, 999);
+  }
+  saveCart();
+  renderCart();
+}
+
+function removeCartItem(codigo) {
+  cart = cart.filter((entry) => entry.codigo !== codigo);
+  saveCart();
+  renderCart();
+}
+
+function renderCart() {
+  const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+  if (cartBadge) {
+    cartBadge.textContent = String(totalCount);
+    cartBadge.classList.toggle("has-items", totalCount > 0);
+  }
+
+  if (!cartItemsContainer || !cartFooter) return;
+
+  if (cart.length === 0) {
+    cartFooter.hidden = true;
+    cartItemsContainer.innerHTML = `
+      <div class="cart-empty">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="9" cy="20" r="1.5" />
+          <circle cx="18" cy="20" r="1.5" />
+          <path d="M2.5 3h3l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h9.2a1.5 1.5 0 0 0 1.4-1.1L21.5 7H6.2" />
+        </svg>
+        <h3>Tu carrito está vacío</h3>
+        <p>Despliega cualquier producto del catálogo y agrégalo para armar tu pedido.</p>
+      </div>
+    `;
+    return;
+  }
+
+  cartFooter.hidden = false;
+  let subtotalNeto = 0;
+  let totalIva = 0;
+
+  cartItemsContainer.innerHTML = cart
+    .map((item) => {
+      const lineTotal = item.precioIva * item.qty;
+      const lineNeto = (item.precioNeto || Math.round(item.precioIva / 1.19)) * item.qty;
+      subtotalNeto += lineNeto;
+      totalIva += lineTotal;
+      return `
+        <article class="cart-item" data-cart-codigo="${item.codigo}">
+          <img class="cart-item-thumb" src="${item.imagen}" alt="${item.nombre}" width="64" height="64" />
+          <div class="cart-item-body">
+            <div class="cart-item-top">
+              <strong>${item.nombre}</strong>
+              <button class="cart-item-remove" type="button" data-cart-remove="${item.codigo}" aria-label="Eliminar ${item.nombre}">
+                ×
+              </button>
+            </div>
+            <span class="cart-item-sku">Cód. ${item.codigo} · ${currency.format(item.precioIva)} c/u</span>
+            <div class="cart-item-bottom">
+              <div class="cart-qty-control">
+                <button type="button" data-cart-dec="${item.codigo}" aria-label="Disminuir cantidad">−</button>
+                <span>${item.qty}</span>
+                <button type="button" data-cart-inc="${item.codigo}" aria-label="Aumentar cantidad">+</button>
+              </div>
+              <strong class="cart-item-subtotal">${currency.format(lineTotal)}</strong>
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  const ivaAmount = Math.max(0, totalIva - subtotalNeto);
+  if (cartSubtotalNetoEl) cartSubtotalNetoEl.textContent = currency.format(subtotalNeto);
+  if (cartIvaEl) cartIvaEl.textContent = currency.format(ivaAmount);
+  if (cartTotalIvaEl) cartTotalIvaEl.textContent = currency.format(totalIva);
+
+  if (cartWhatsappBtn) {
+    const lines = cart.map(
+      (item) => `• ${item.qty}x ${item.nombre} (${item.codigo}) — ${currency.format(item.precioIva * item.qty)}`,
+    );
+    const msg = `Hola Poseck Ferreterías, quiero realizar el siguiente pedido:\n\n${lines.join("\n")}\n\nTotal IVA incl.: ${currency.format(totalIva)}`;
+    cartWhatsappBtn.href = `https://wa.me/56953326406?text=${encodeURIComponent(msg)}`;
+  }
+}
+
+function openCart() {
+  if (!cartBackdrop) return;
+  cartBackdrop.hidden = false;
+  document.body.classList.add("modal-open");
+  cartToggleBtn?.setAttribute("aria-expanded", "true");
+  cartCloseBtn?.focus();
+}
+
+function closeCart() {
+  if (!cartBackdrop) return;
+  cartBackdrop.hidden = true;
+  if (modal?.hidden !== false) {
+    document.body.classList.remove("modal-open");
+  }
+  cartToggleBtn?.setAttribute("aria-expanded", "false");
+}
+
+cartToggleBtn?.addEventListener("click", openCart);
+cartCloseBtn?.addEventListener("click", closeCart);
+cartBackdrop?.addEventListener("click", (event) => {
+  if (event.target === cartBackdrop) closeCart();
+});
+cartClearBtn?.addEventListener("click", () => {
+  cart = [];
+  saveCart();
+  renderCart();
+});
+
+cartItemsContainer?.addEventListener("click", (event) => {
+  const incBtn = event.target.closest("[data-cart-inc]");
+  if (incBtn) {
+    updateCartItemQty(incBtn.dataset.cartInc, 1);
+    return;
+  }
+  const decBtn = event.target.closest("[data-cart-dec]");
+  if (decBtn) {
+    updateCartItemQty(decBtn.dataset.cartDec, -1);
+    return;
+  }
+  const remBtn = event.target.closest("[data-cart-remove]");
+  if (remBtn) {
+    removeCartItem(remBtn.dataset.cartRemove);
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && cartBackdrop && !cartBackdrop.hidden) {
+    closeCart();
+  }
+});
+
+renderCart();
