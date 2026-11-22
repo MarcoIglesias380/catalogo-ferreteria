@@ -18,12 +18,16 @@ let lastFocusedElement = null;
 function applyTheme(theme, persist = true) {
   const isDark = theme === "dark";
   document.documentElement.dataset.theme = isDark ? "dark" : "light";
-  themeToggle.setAttribute("aria-pressed", String(isDark));
-  themeToggle.setAttribute(
-    "aria-label",
-    isDark ? "Activar modo claro" : "Activar modo oscuro",
-  );
-  themeColorMeta.setAttribute("content", isDark ? "#11110f" : "#171716");
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.setAttribute(
+      "aria-label",
+      isDark ? "Activar modo claro" : "Activar modo oscuro",
+    );
+  }
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", isDark ? "#11110f" : "#171716");
+  }
 
   if (persist) {
     try {
@@ -37,11 +41,13 @@ function applyTheme(theme, persist = true) {
 
 applyTheme(document.documentElement.dataset.theme || "light", false);
 
-themeToggle.addEventListener("click", () => {
-  const nextTheme =
-    document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  applyTheme(nextTheme);
-});
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const nextTheme =
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(nextTheme);
+  });
+}
 
 function updateBackToTopVisibility() {
   backToTopButton.classList.toggle("is-visible", window.scrollY > 520);
