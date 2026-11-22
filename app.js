@@ -912,3 +912,24 @@ toggleMapBtn?.addEventListener("click", () => {
     labelSpan.textContent = willOpen ? "Ocultar mapa" : "Cómo llegar · Ver mapa";
   }
 });
+
+
+/* ---- Floating WhatsApp Widget ---- */
+const waToggleBtn = document.querySelector("#wa-toggle-btn");
+const waCloseBtn = document.querySelector("#wa-close-btn");
+const waPopup = document.querySelector("#wa-popup");
+
+function toggleWhatsAppPopup(forceOpen) {
+  if (!waPopup || !waToggleBtn) return;
+  const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : waPopup.hidden;
+  waPopup.hidden = !shouldOpen;
+  waToggleBtn.setAttribute("aria-expanded", String(shouldOpen));
+}
+
+waToggleBtn?.addEventListener("click", () => toggleWhatsAppPopup());
+waCloseBtn?.addEventListener("click", () => toggleWhatsAppPopup(false));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && waPopup && !waPopup.hidden) {
+    toggleWhatsAppPopup(false);
+  }
+});
