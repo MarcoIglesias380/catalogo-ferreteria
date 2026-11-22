@@ -41,8 +41,8 @@
   --tool-black: #e4e4de;
   --steel: #b4b4ac;
   --zinc: #85857e;
-  --paper: #121315;
-  --warehouse-floor: #1a1a1d;
+  --paper: #0b0c0e;
+  --warehouse-floor: #111216;
   --surface-raised: #202024;
   --line-soft: rgba(255, 255, 248, 0.1);
   --line-medium: rgba(255, 255, 248, 0.2);
@@ -311,10 +311,20 @@ svg {
   z-index: 2;
   width: min(100%, var(--content-width));
   margin: 0 auto;
-  padding-top: 12px;
+  padding-top: 44px;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 36px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@media (min-width: 960px) {
+  .hero-container {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 44px;
+  }
 }
 
 .hero-content {
@@ -1713,4 +1723,360 @@ svg {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* Floating Navigation Bar (Inicio · Marcas · Contáctanos) */
+.floating-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, rgba(11, 12, 14, 0.85) 0%, rgba(11, 12, 14, 0) 100%);
+  pointer-events: none;
+}
+
+.floating-nav.is-solid {
+  background: rgba(11, 12, 14, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.floating-nav-inner {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.floating-nav.is-solid .floating-nav-inner {
+  justify-content: space-between;
+}
+
+.floating-nav-brand img {
+  display: block;
+  width: 92px;
+  height: auto;
+  pointer-events: auto;
+}
+
+.floating-nav-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(18, 19, 22, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: auto;
+}
+
+.floating-nav-links a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.floating-nav-links a:hover,
+.floating-nav-links a.is-active {
+  background: var(--brand-red);
+  color: #ffffff;
+}
+
+/* Partner 3D Logos on Hero Right */
+.hero-partners {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 6px;
+}
+
+@media (min-width: 960px) {
+  .hero-partners {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.hero-partners-label {
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.hero-partners-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  perspective: 900px;
+}
+
+@media (min-width: 960px) {
+  .hero-partners-list {
+    align-items: flex-end;
+  }
+}
+
+.partner-3d-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(15, 16, 20, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform-style: preserve-3d;
+  transition:
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 280ms ease,
+    border-color 280ms ease,
+    background 280ms ease,
+    box-shadow 280ms ease;
+  cursor: pointer;
+}
+
+.partner-3d-link img {
+  display: block;
+  height: 44px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.65));
+  transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 960px) {
+  .partner-3d-link img {
+    height: 52px;
+    max-width: 270px;
+  }
+}
+
+.partner-3d-link:hover,
+.partner-3d-link:focus-visible {
+  transform: perspective(800px) rotateY(-10deg) rotateX(4deg) translateY(-4px) scale(1.05);
+  background: rgba(24, 25, 30, 0.65);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
+}
+
+.partner-einhell:hover {
+  border-color: rgba(227, 6, 19, 0.55);
+  box-shadow: 0 18px 36px rgba(227, 6, 19, 0.24);
+}
+
+.partner-stanley:hover,
+.partner-dewalt:hover {
+  border-color: rgba(245, 196, 0, 0.55);
+  box-shadow: 0 18px 36px rgba(245, 196, 0, 0.20);
+}
+
+.partner-3d-link:active,
+.partner-3d-link.is-clicked {
+  transform: perspective(800px) rotateY(10deg) rotateX(-4deg) scale(0.94);
+  transition-duration: 120ms;
+}
+
+/* Dedicated Partner Brand Pages */
+.brand-page {
+  background: #0b0c0e;
+  color: #f4f4ef;
+}
+
+.brand-page-main {
+  padding-top: 72px;
+}
+
+.brand-hero {
+  padding: 52px 16px 40px;
+  background: radial-gradient(ellipse 70% 70% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 70%), #0b0c0e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-hero-inner,
+.brand-catalog-inner {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+}
+
+.brand-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.brand-back-link:hover {
+  color: #ffffff;
+  transform: translateX(-3px);
+}
+
+.brand-hero-logo img {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.65));
+}
+
+.brand-hero-copy {
+  max-width: 600px;
+  margin: 0;
+  color: #b9b9b2;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.brand-catalog-section {
+  padding: 48px 16px 80px;
+  background: #0b0c0e;
+}
+
+.brand-catalog-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.brand-catalog-head h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.brand-catalog-head span {
+  font-size: 0.82rem;
+  color: #8f908a;
+}
+
+.brand-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.brand-product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  border-radius: 16px;
+  background: #141519;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+
+.brand-product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+.brand-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.brand-card-cat {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-red);
+}
+
+.brand-card-sku {
+  font-size: 0.72rem;
+  color: #7c7e85;
+  font-family: ui-monospace, monospace;
+}
+
+.brand-product-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.04rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+}
+
+.brand-card-spec {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d4d4cd;
+}
+
+.brand-card-desc {
+  margin: 0 0 20px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: #96989f;
+}
+
+.brand-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-card-footer small {
+  display: block;
+  font-size: 0.7rem;
+  color: #8a8c93;
+}
+
+.brand-card-footer strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.brand-quote-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: var(--brand-red);
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.brand-quote-btn:hover {
+  background: var(--brand-red-dark);
+  transform: translateY(-1px);
 }

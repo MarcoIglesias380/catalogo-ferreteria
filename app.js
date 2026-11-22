@@ -382,3 +382,17 @@ document.addEventListener("keydown", (event) => {
 });
 
 loadProducts();
+
+
+document.querySelectorAll(".partner-3d-link").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const href = link.getAttribute("href");
+    if (!href) return;
+    event.preventDefault();
+    link.classList.add("is-clicked");
+    window.setTimeout(() => {
+      link.classList.remove("is-clicked");
+      window.location.href = href;
+    }, 170);
+  });
+});
