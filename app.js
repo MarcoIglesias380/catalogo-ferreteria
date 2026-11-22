@@ -610,3 +610,237 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderCart();
+
+
+/* ---- Customer Account & Login ("Hola, inicia sesión" / "Mi cuenta") ---- */
+const ACCOUNT_STORAGE_KEY = "poseck-user";
+const ORDERS_STORAGE_KEY = "poseck-orders";
+const accountToggleBtn = document.querySelector("#account-toggle-btn");
+const accountGreetingEl = document.querySelector("#nav-account-greeting");
+const accountLabelEl = document.querySelector("#nav-account-label");
+const accountBackdrop = document.querySelector("#account-backdrop");
+const accountCloseBtn = document.querySelector("#account-close-btn");
+const accountModalBody = document.querySelector("#account-modal-body");
+
+let accountTab = "login";
+
+function loadUser() {
+  try {
+    const raw = localStorage.getItem(ACCOUNT_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveUser(user) {
+  try {
+    if (user) {
+      localStorage.setItem(ACCOUNT_STORAGE_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(ACCOUNT_STORAGE_KEY);
+    }
+  } catch {
+    // Ignorar si almacenamiento local está restringido.
+  }
+}
+
+function loadOrders() {
+  try {
+    const raw = localStorage.getItem(ORDERS_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function recordOrderFromCart() {
+  if (!cart.length) return;
+  const total = cart.reduce((sum, item) => sum + item.precioIva * item.qty, 0);
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  const orders = loadOrders();
+  orders.unshift({
+    id: `PF-${Date.now().toString().slice(-6)}`,
+    date: new Date().toLocaleDateString("es-CL"),
+    items: count,
+    total,
+  });
+  try {
+    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders.slice(0, 10)));
+  } catch {
+    // Ignorar.
+  }
+}
+
+cartWhatsappBtn?.addEventListener("click", recordOrderFromCart);
+
+function updateAccountNav() {
+  const user = loadUser();
+  if (!accountGreetingEl || !accountLabelEl) return;
+  if (user?.name) {
+    const firstName = user.name.trim().split(/\s+/)[0];
+    accountGreetingEl.textContent = `Hola, ${firstName}`;
+    accountLabelEl.textContent = "Mi cuenta";
+  } else {
+    accountGreetingEl.textContent = "Hola, inicia sesión";
+    accountLabelEl.textContent = "Mi cuenta";
+  }
+}
+
+function renderAccountModal() {
+  if (!accountModalBody) return;
+  const user = loadUser();
+
+  if (user) {
+    const orders = loadOrders();
+    accountModalBody.innerHTML = `
+      <div class="account-profile-card">
+        <div class="account-avatar">${user.name.trim().charAt(0).toUpperCase()}</div>
+        <div>
+          <strong>${user.name}</strong>
+          <span>${user.email}</span>
+          ${user.company ? `<small>Empresa / RUT: ${user.company}</small>` : ""}
+        </div>
+      </div>
+
+      <div class="account-section">
+        <h3>Mis pedidos recientes</h3>
+        ${
+          orders.length
+            ? `<div class="account-orders-list">${orders
+                .map(
+                  (o) => `
+                  <div class="account-order-row">
+                    <div>
+                      <strong>Pedido ${o.id}</strong>
+                      <span>${o.date} · ${o.items} producto(s)</span>
+                    </div>
+                    <strong>${currency.format(o.total)}</strong>
+                  </div>`,
+                )
+                .join("")}</div>`
+            : `<p class="account-empty-orders">Aún no has enviado pedidos desde el carrito.</p>`
+        }
+      </div>
+
+      <button class="account-logout-btn" type="button" id="account-logout-btn">
+        Cerrar sesión
+      </button>
+    `;
+    return;
+  }
+
+  accountModalBody.innerHTML = `
+    <div class="account-tabs" role="tablist">
+      <button type="button" class="account-tab ${accountTab === "login" ? "is-active" : ""}" data-account-tab="login">
+        Iniciar sesión
+      </button>
+      <button type="button" class="account-tab ${accountTab === "register" ? "is-active" : ""}" data-account-tab="register">
+        Crear cuenta
+      </button>
+    </div>
+
+    ${
+      accountTab === "login"
+        ? `
+      <form class="account-form" id="account-login-form">
+        <label>
+          <span>Correo electrónico</span>
+          <input type="email" name="email" required placeholder="cliente@empresa.cl" />
+        </label>
+        <label>
+          <span>Contraseña</span>
+          <input type="password" name="password" required placeholder="••••••••" />
+        </label>
+        <button class="account-submit-btn" type="submit">Ingresar a Mi cuenta</button>
+      </form>`
+        : `
+      <form class="account-form" id="account-register-form">
+        <label>
+          <span>Nombre completo</span>
+          <input type="text" name="name" required placeholder="Ej: Carlos Pérez" />
+        </label>
+        <label>
+          <span>Empresa / RUT (opcional)</span>
+          <input type="text" name="company" placeholder="Constructora Sur / 76.xxx.xxx-x" />
+        </label>
+        <label>
+          <span>Correo electrónico</span>
+          <input type="email" name="email" required placeholder="carlos@constructora.cl" />
+        </label>
+        <label>
+          <span>Contraseña</span>
+          <input type="password" name="password" required minlength="4" placeholder="Mínimo 4 caracteres" />
+        </label>
+        <button class="account-submit-btn" type="submit">Crear mi cuenta</button>
+      </form>`
+    }
+  `;
+}
+
+function openAccountModal() {
+  if (!accountBackdrop) return;
+  renderAccountModal();
+  accountBackdrop.hidden = false;
+  document.body.classList.add("modal-open");
+  accountToggleBtn?.setAttribute("aria-expanded", "true");
+  accountCloseBtn?.focus();
+}
+
+function closeAccountModal() {
+  if (!accountBackdrop) return;
+  accountBackdrop.hidden = true;
+  if (modal?.hidden !== false && cartBackdrop?.hidden !== false) {
+    document.body.classList.remove("modal-open");
+  }
+  accountToggleBtn?.setAttribute("aria-expanded", "false");
+}
+
+accountToggleBtn?.addEventListener("click", openAccountModal);
+accountCloseBtn?.addEventListener("click", closeAccountModal);
+accountBackdrop?.addEventListener("click", (event) => {
+  if (event.target === accountBackdrop) closeAccountModal();
+});
+
+accountModalBody?.addEventListener("click", (event) => {
+  const tabBtn = event.target.closest("[data-account-tab]");
+  if (tabBtn) {
+    accountTab = tabBtn.dataset.accountTab;
+    renderAccountModal();
+    return;
+  }
+  if (event.target.closest("#account-logout-btn")) {
+    saveUser(null);
+    updateAccountNav();
+    renderAccountModal();
+  }
+});
+
+accountModalBody?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.target;
+  const data = new FormData(form);
+  if (form.id === "account-login-form") {
+    const email = String(data.get("email") || "").trim();
+    const inferredName = email.split("@")[0].replace(/[._-]+/g, " ");
+    const formatted = inferredName.replace(/\b\w/g, (c) => c.toUpperCase()) || "Cliente";
+    saveUser({ name: formatted, email, company: "" });
+  } else if (form.id === "account-register-form") {
+    saveUser({
+      name: String(data.get("name") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      company: String(data.get("company") || "").trim(),
+    });
+  }
+  updateAccountNav();
+  renderAccountModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && accountBackdrop && !accountBackdrop.hidden) {
+    closeAccountModal();
+  }
+});
+
+updateAccountNav();
