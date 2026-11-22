@@ -311,7 +311,7 @@ svg {
   z-index: 2;
   width: min(100%, var(--content-width));
   margin: 0 auto;
-  padding-top: clamp(240px, 38vw, 390px);
+  padding-top: 12px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -319,7 +319,7 @@ svg {
 
 .hero-content {
   width: 100%;
-  max-width: 620px;
+  max-width: 680px;
   animation: reveal-up 0.65s both cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -336,24 +336,21 @@ svg {
 }
 
 .hero-3d-stage {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: min(100%, var(--content-width));
-  height: 100%;
-  margin: 0 auto;
+  position: relative;
+  width: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: flex-start;
-  padding-top: clamp(12px, 3vh, 30px);
+  margin: 0 0 -24px;
   pointer-events: none;
   overflow: visible;
 }
 
 .hero-3d-video {
-  width: min(100%, 760px);
+  width: min(122%, 760px);
+  max-width: none;
   height: auto;
-  max-height: 70%;
+  display: block;
   object-fit: contain;
   transform: translateX(-16%);
   filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.72));
@@ -362,12 +359,12 @@ svg {
 
 @media (max-width: 640px) {
   .hero-3d-stage {
-    justify-content: center;
+    margin-bottom: -12px;
   }
 
   .hero-3d-video {
-    width: 100%;
-    transform: none;
+    width: 120%;
+    transform: translateX(-10%);
   }
 }
 
