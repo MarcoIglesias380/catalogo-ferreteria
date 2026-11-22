@@ -347,12 +347,12 @@ svg {
 }
 
 .hero-3d-video {
-  width: min(122%, 760px);
+  width: min(135%, 820px);
   max-width: none;
   height: auto;
   display: block;
   object-fit: contain;
-  transform: translateX(-16%);
+  transform: translateX(-26.4%);
   filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.72));
   pointer-events: none;
 }
@@ -363,8 +363,8 @@ svg {
   }
 
   .hero-3d-video {
-    width: 120%;
-    transform: translateX(-10%);
+    width: 145%;
+    transform: translateX(-26.4%);
   }
 }
 
