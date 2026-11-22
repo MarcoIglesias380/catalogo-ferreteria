@@ -339,23 +339,36 @@ svg {
   position: absolute;
   inset: 0;
   z-index: 1;
-  width: 100%;
+  width: min(100%, var(--content-width));
   height: 100%;
+  margin: 0 auto;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  padding-top: clamp(8px, 2vh, 24px);
+  justify-content: flex-start;
+  padding-top: clamp(12px, 3vh, 30px);
   pointer-events: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero-3d-video {
-  width: min(100%, 1240px);
+  width: min(100%, 760px);
   height: auto;
-  max-height: 78%;
+  max-height: 70%;
   object-fit: contain;
+  transform: translateX(-16%);
   filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.72));
   pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .hero-3d-stage {
+    justify-content: center;
+  }
+
+  .hero-3d-video {
+    width: 100%;
+    transform: none;
+  }
 }
 
 .hero-subtitle {
