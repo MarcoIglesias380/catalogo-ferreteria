@@ -2695,115 +2695,94 @@ svg {
 }
 
 
-/* ---- Branch Selector & Map / Waze Directions ---- */
+/* ---- Branch Selector & Map / Waze Directions (Minimalist Text-Only) ---- */
 .branch-selector {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-@media (min-width: 600px) {
-  .branch-selector {
-    grid-template-columns: 1fr 1fr;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .branch-pill {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
-  padding: 12px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  color: #ffffff;
+  gap: 2px;
+  padding: 0 0 10px 12px;
+  border: 0;
+  border-left: 2px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
   text-align: left;
   cursor: pointer;
-  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, color 180ms ease;
 }
 
 .branch-pill strong {
-  font-size: 0.86rem;
-  font-weight: 750;
-  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 180ms ease;
 }
 
 .branch-pill span {
-  font-size: 0.76rem;
-  line-height: 1.4;
-  color: #b4b6bd;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #8f9299;
 }
 
-.branch-pill:hover {
-  border-color: rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.07);
+.branch-pill:hover strong,
+.branch-pill.is-active strong {
+  color: #ffffff;
 }
 
 .branch-pill.is-active {
-  border-color: var(--brand-red);
-  background: rgba(227, 6, 19, 0.14);
+  border-left-color: var(--brand-red);
+}
+
+.branch-pill.is-active span {
+  color: #d0d2d8;
 }
 
 .location-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .location-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 14px;
-  border-radius: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #d4d4cd;
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
 }
 
-.location-btn svg {
-  width: 16px;
-  height: 16px;
+.location-btn:hover,
+.location-btn:focus-visible {
+  color: #ffffff;
+  text-decoration-color: var(--brand-red);
 }
 
 .location-btn.is-map-toggle {
-  border: 1px solid var(--brand-red);
-  background: var(--brand-red);
   color: #ffffff;
+  font-weight: 700;
+  text-decoration-color: var(--brand-red);
 }
 
-.location-btn.is-map-toggle:hover {
-  background: var(--brand-red-dark);
-  transform: translateY(-1px);
-}
-
-.location-btn.is-gmaps {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
-}
-
-.location-btn.is-gmaps:hover {
-  background: rgba(255, 255, 255, 0.14);
-  transform: translateY(-1px);
-}
-
-.location-btn.is-waze {
-  border: 1px solid rgba(51, 204, 255, 0.35);
-  background: rgba(51, 204, 255, 0.14);
-  color: #7ee3ff;
-}
-
-.location-btn.is-waze:hover {
-  background: rgba(51, 204, 255, 0.24);
-  color: #ffffff;
-  transform: translateY(-1px);
+.location-sep {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 0.82rem;
 }
 
 .footer-map[hidden] {

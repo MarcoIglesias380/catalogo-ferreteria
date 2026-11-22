@@ -909,6 +909,6 @@ toggleMapBtn?.addEventListener("click", () => {
   toggleMapBtn.setAttribute("aria-expanded", String(willOpen));
   const labelSpan = toggleMapBtn.querySelector("span");
   if (labelSpan) {
-    labelSpan.textContent = willOpen ? "Ocultar mapa" : "Cómo llegar (Ver mapa)";
+    labelSpan.textContent = willOpen ? "Ocultar mapa" : "Cómo llegar · Ver mapa";
   }
 });
